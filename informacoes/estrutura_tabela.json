@@ -1,0 +1,84 @@
+[{
+    "ano": 2022,
+    "linhas" : {"pre":{"math": 259, "adm": 21, "pedago": 278, "bio": 49}, "ead":{"math": 159, "adm": 15, "pedago": 172, "bio": 35}},
+    "colunas": {"cursos":["Q", "U", "AM", "AQ", "BI","BM", "BW"], "matriculas":["NC'", "NG","OF","OJ","PI","PM","QD"], "concluintes":["QR","QV","RN","RR","SJ","SN","SX"]},
+    "sheet": {"pre": "'8.2'!", "ead": "'8.3'!"}
+},
+{
+    "ano": 2021,
+    "linhas": {"pre":{"math": 257, "adm": 20,  "pedago": 276, "bio": 48}, "ead":{"math": 157, "adm": 14, "pedago": 169, "bio": 34}},
+    "colunas": {"cursos":["O","S","AE","AI","AU","AY","BE"], "matriculas":["JO","JS","KJ","KN","LE","LI","LT"], "concluintes":["MF","MJ","MV","MZ","NL","NP","NV"]},
+    "sheet":{"pre":"'8.2'!", "ead":"'8.3'!"}
+},
+{
+    "ano": 2020,
+    "linhas":{"cursos_pre":{"math":61, "adm":199, "pedago":72, "bio":44}, "matriculas_pre":{"maths":63, "adm":201, "pedago":74, "bio":46}, "concluintes_pre":{"math":61, "adm":199, "pedago":72, "bio":44}, "cursos_ead":{"math":45, "adm":140, "pedago":55, "bio":32}, "matriculas_ead":{"math":45, "adm":140, "pedago":55, "bio":32}, "concluintes_ead": {"math":45, "adm":140, "pedago":55, "bio":32}},
+    "colunas":["B", "F"],
+    "sheet":{"cursos_pre": "'3.2'!", "matriculas_pre": "'5.2'!", "concluintes_pre": "'6.2'!", "cursos_ead":"'7.4'!", "matriculas_ead":"'7.6'!", "concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2019,
+    "linhas": {"cursos_pre":{"math": 61, "adm": 199, "pedago":72, "bio":44}, "matriculas_pre":{"math":63, "adm":201, "pedago":74,"bio":46}, "concluinte_pre":{"math":61, "adm":199, "pedago":72, "bio":44}, "cursos_ead":{"math":45, "adm":134, "pedago":55, "bio":32}, "matriculas_ead":{"math":45, "adm":134, "pedago":55,"bio":32}, "concluintes_ead":{"math":45, "adm":134,"pedago":55,"bio":32}},
+    "colunas":["B", "F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!", "cursos_ead":"'7.4'!", "matriculas_ead":"'7.6'!", "concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2018,
+    "linhas":{"cursos_pre":{"math":61,"adm":197,"pedago":72,"bio":44}, "matriculas_pre":{"math":63,"adm":199,"pedago":74,"bio":46}, "concluinte_pre":{"math":61,"adm":197,"pedago":72,"bio":44},"cursos_ead":{"math":42,"adm":123,"pedago":51,"bio":29},"matriculas_ead":{"math":42,"adm":123,"pedago":51,"bio":29},"concluintes_ead":{"math":42,"adm":123,"pedago":51,"bio":29}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2017,
+    "linhas":{"cursos_pre":{"math":61,"adm":165,"pedago":16,"bio":48}, "matriculas_pre":{"math":63,"adm":167,"pedago":18,"bio":50}, "concluinte_pre":{"math":61,"adm":165,"pedago":16,"bio":48},"cursos_ead":{"math":44,"adm":99,"pedago":14,"bio":33},"matriculas_ead":{"math":44,"adm":99,"pedago":14,"bio":33},"concluintes_ead":{"math":44,"adm":99,"pedago":14,"bio":33}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2016,
+    "linhas":{"cursos_pre":{"math":60,"adm":164,"pedago":16,"bio":47}, "matriculas_pre":{"math":62,"adm":166,"pedago":18,"bio":49}, "concluinte_pre":{"math":60,"adm":164,"pedago":16,"bio":47},"cursos_ead":{"math":45,"adm":95,"pedago":15,"bio":34},"matriculas_ead":{"math":45,"adm":95,"pedago":15,"bio":34},"concluintes_ead":{"math":45,"adm":95,"pedago":15,"bio":34}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2015,
+    "linhas":{"cursos_pre":{"math":58,"adm":158,"pedago":16,"bio":44}, "matriculas_pre":{"math":60,"adm":160,"pedago":18,"bio":46}, "concluinte_pre":{"math":58,"adm":158,"pedago":16,"bio":44},"cursos_ead":{"math":43,"adm":94,"pedago":15,"bio":33},"matriculas_ead":{"math":43,"adm":94,"pedago":15,"bio":33},"concluintes_ead":{"math":43,"adm":94,"pedago":15,"bio":33}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2014,
+    "linhas":{"cursos_pre":{"math":58,"adm":158,"pedago":14,"bio":43}, "matriculas_pre":{"math":60,"adm":160,"pedago":16,"bio":45}, "concluinte_pre":{"math":58,"adm":158,"pedago":14,"bio":43},"cursos_ead":{"math":39,"adm":88,"pedago":13,"bio":30},"matriculas_ead":{"math":39,"adm":88,"pedago":13,"bio":30},"concluintes_ead":{"math":39,"adm":88,"pedago":13,"bio":30}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2013,
+    "linhas":{"cursos_pre":{"math":58,"adm":158,"pedago":16,"bio":43}, "matriculas_pre":{"math":60,"adm":160,"pedago":18,"bio":45}, "concluinte_pre":{"math":58,"adm":158,"pedago":16,"bio":43},"cursos_ead":{"math":41,"adm":85,"pedago":15,"bio":31},"matriculas_ead":{"math":41,"adm":85,"pedago":15,"bio":31},"concluintes_ead":{"math":41,"adm":85,"pedago":15,"bio":31}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2012,
+    "linhas":{"cursos_pre":{"math":59,"adm":159,"pedago":17,"bio":44}, "matriculas_pre":{"math":61,"adm":161,"pedago":19,"bio":46}, "concluinte_pre":{"math":59,"adm":159,"pedago":17,"bio":44},"cursos_ead":{"math":42,"adm":83,"pedago":14,"bio":32},"matriculas_ead":{"math":42,"adm":83,"pedago":14,"bio":32},"concluintes_ead":{"math":42,"adm":83,"pedago":14,"bio":32}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2011,
+    "linhas":{"cursos_pre":{"math":53,"adm":154,"pedago":16,"bio":40}, "matriculas_pre":{"math":55,"adm":156,"pedago":18,"bio":42}, "concluinte_pre":{"math":53,"adm":154,"pedago":16,"bio":40},"cursos_ead":{"math":42,"adm":83,"pedago":14,"bio":32},"matriculas_ead":{"math":42,"adm":83,"pedago":14,"bio":32},"concluintes_ead":{"math":42,"adm":83,"pedago":14,"bio":32}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2010,
+    "linhas":{"cursos_pre":{"math":55,"adm":156,"pedago":16,"bio":42}, "matriculas_pre":{"math":57,"adm":158,"pedago":18,"bio":44}, "concluinte_pre":{"math":55,"adm":156,"pedago":16,"bio":42},"cursos_ead":{"math":41,"adm":76,"pedago":14,"bio":32},"matriculas_ead":{"math":41,"adm":76,"pedago":14,"bio":32},"concluintes_ead":{"math":41,"adm":76,"pedago":14,"bio":32}},
+    "colunas":["B","F"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.4'!","matriculas_ead":"'7.6'!","concluintes_ead":"'7.7'!"}
+},
+{
+    "ano": 2009,
+    "linhas":{"cursos_pre":{"math":80,"adm":241,"pedago":22,"bio":62}, "matriculas_pre":{"math":80,"adm":241,"pedago":22,"bio":62}, "concluinte_pre":{"math":80,"adm":241,"pedago":22,"bio":62},"cursos_ead":{"math":52,"adm":113,"pedago":16,"bio":41},"matriculas_ead":{"math":52,"adm":113,"pedago":16,"bio":41},"concluintes_ead":{"math":52,"adm":113,"pedago":16,"bio":41}},
+    "colunas":["B","F","G"],
+    "sheet":{"cursos_pre":"'3.2'!", "matriculas_pre":"'5.2'!", "concluintes_pre":"'6.2'!","cursos_ead":"'7.2'!","matriculas_ead":"'7.4'!","concluintes_ead":"'7.5'!"}
+}]
