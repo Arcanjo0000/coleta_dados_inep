@@ -1,1 +1,1 @@
-"# Automaá∆o IC" 
+# Automa√ß√£o IC 
