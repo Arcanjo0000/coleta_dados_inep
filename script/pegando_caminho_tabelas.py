@@ -1,6 +1,7 @@
 import os
 from typing import Dict
 from tkinter import filedialog, Tk, Button
+import customtkinter as ctk
 from re import search
 import json
 
@@ -31,12 +32,13 @@ def criar_json(dicionario: Dict) -> None:
 
 
 def abrir_janela(janela_pricipal) -> None:
-    janela_secundaria = Tk()
+    janela_secundaria = ctk.CTk()
     janela_secundaria.title("listar arquivos")
-    janela_secundaria.configure(pady=30, padx=100)
+    janela_secundaria.geometry("780x480")
 
-    botao_selecionar = Button(janela_secundaria, text="selecionar diretorio", command=lambda: pegar_caminho(janela_pricipal,janela_secundaria))
-    botao_selecionar.pack(pady=10)
+    botao_selecionar = ctk.CTkButton(janela_secundaria, text="selecionar diretorio", command=lambda: pegar_caminho(janela_pricipal,janela_secundaria))
+    botao_selecionar.pack(padx = 20, pady = 20)
+    
     janela_secundaria.mainloop()
 
 def fechar_janela(janela_pricipal, janela_secundaria=None) -> None:
@@ -49,13 +51,19 @@ def passar(janela_principal):
 
 
 def pergunta():
-    janela_pricipal = Tk()
-    janela_pricipal.title("ja escolheu a pasta com os arquivos?")
-    janela_pricipal.configure(padx=300,pady=100)
-    botao_sim = Button(janela_pricipal, text="sim", command=lambda:passar(janela_pricipal))
-    botao_sim.pack(pady=10)
-    botao_nao = Button(janela_pricipal, text="não", command=lambda:abrir_janela(janela_pricipal))
-    botao_nao.pack(pady=10)
+    janela_pricipal = ctk.CTk()
+    janela_pricipal.title("caminho dos arquivos")
+    janela_pricipal.geometry("780x480")
+
+    texto = ctk.CTkLabel(janela_pricipal, text="já escolheu a pasta com os arquivos?")
+    texto.pack(padx = 20, pady = 20)
+    
+    botao_sim = ctk.CTkButton(janela_pricipal, text="sim", command=lambda:passar(janela_pricipal))
+    botao_sim.pack(pady=20, padx = 20)
+    
+    botao_nao = ctk.CTkButton(janela_pricipal, text="não", command=lambda:abrir_janela(janela_pricipal))
+    botao_nao.pack(padx = 20, pady=10)
+
     janela_pricipal.mainloop()
 
 

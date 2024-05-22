@@ -1,8 +1,14 @@
 from win32gui import FindWindow, SetForegroundWindow
 from pyautogui import hotkey, write, press
+from win32com.client import Dispatch
 from time import sleep
 from pyperclip import paste
 from classe.tabela import Tabela
+
+def fechar_excel():
+    excel = Dispatch("Excel.application")
+    excel.Quit()
+    del excel
 
 def coleta(caminho):
     lista_de_dados_coletados = []
@@ -11,9 +17,25 @@ def coleta(caminho):
     formatando_estrutura_para_escrever(linhas, colunas, sheets, lista_de_dados_coletados)
     lista_de_dados_coletados.split()
     gravando_dados(ano, lista_de_dados_coletados)
+    fechar_excel()
 
 def formatando_estrutura_para_escrever(linhas, colunas, sheets, lista_de_dados):
     
+    # for modalidade_sheet in sheets:
+    #     sheet = sheets[modalidade_sheet]
+    #     for modalidade_linhas in linhas:
+    #         dicionario_linhas = linhas[modalidade_linhas]
+    #         if str(modalidade_sheet) == str(modalidade_linhas):
+    #             for curso in dicionario_linhas:
+    #                 linha = dicionario_linhas[curso]
+    #                 for coluna in colunas:
+    #                     if coluna == "cursos" or coluna == "matriculas" or coluna == "concluintes":
+    #                         for item in coluna:
+    #                             coluna = item
+    #                     print(f"coordenadas : {sheet} {coluna} {linha}")
+    #                     movendo(sheet, coluna, linha,)
+    #                     coleta_info(lista_de_dados)  
+
     for modalidade_sheet in sheets:
         sheet = sheets[modalidade_sheet]
         for modalidade_linhas in linhas:
@@ -22,9 +44,16 @@ def formatando_estrutura_para_escrever(linhas, colunas, sheets, lista_de_dados):
                 for curso in dicionario_linhas:
                     linha = dicionario_linhas[curso]
                     for coluna in colunas:
-                        print(f"cordenada : {sheet}{coluna}{linha}")
-                        movendo(sheet, coluna, linha)
-                        coleta_info(lista_de_dados)                
+                        if coluna == "cursos" or coluna == "matriculas" or coluna == "concluintes":
+                            for item in coluna:
+                                coluna = item
+                                print(f"coordenadas : {sheet} {coluna} {linha}")
+                                movendo(sheet, coluna, linha,)
+                                coleta_info(lista_de_dados)
+                        else:
+                            print(f"coordenadas : {sheet} {coluna} {linha}")
+                            movendo(sheet, coluna, linha,)
+                            coleta_info(lista_de_dados)
 
 def coleta_info(lista):
     hotkey("ctrl", "c")

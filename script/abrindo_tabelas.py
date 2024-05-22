@@ -1,5 +1,6 @@
 from classe.tabela import Tabela
-from tkinter import Tk, Button
+from tkinter import Tk, Button, Label
+import customtkinter as ctk
 import os
 from win32com.client import Dispatch
 from script.coleta_dados import coleta
@@ -19,34 +20,71 @@ def acessando_os_caminhos():
 def abrir_tabela(caminho, janela):
     fechar_janela(janela)
     os.startfile(caminho)
+
+    ctk.set_appearance_mode("System")
+    ctk.set_default_color_theme("blue")
+    abriu = ctk.CTk()
+    abriu.title("situação da tabela")
+    abriu.geometry("780x480")
+
+    pergunta = ctk.CTkLabel(abriu, text="a tabela abrui?")
+    pergunta.pack(padx = 20, pady = 20)
+
+    botao_abriu = ctk.CTkButton(abriu, text="Sim", command=lambda:prosseguir(abriu, caminho))
+    botao_abriu.pack(padx = 20, pady= 20)
+    botao_nao_abriu = ctk.CTkButton(abriu, text="Não", command=lambda:deu_erro(abriu))
+    botao_nao_abriu.pack(padx = 20, pady = 20)
+
+    abriu.mainloop()
+
+def prosseguir(janela, caminho):
+    fechar_janela(janela)
     coleta(caminho)
 
-def fechar_tabela(janela):
-    try:
-        fechar_janela(janela)
-        excel = Dispatch("Excel.application")
-        excel.Quit()
-        del excel
-        print("excel foi fechado com sucesso")
-    except Exception as e:
-        print("erro ao fechar o excel:", str(e))
+def fechar_excel():
+    excel = Dispatch("Excel.application")
+    excel.Quit()
+    del excel
+
+def deu_erro(janela):
+    fechar_excel()
+    fechar_programa(janela)
+
+def fechar_programa(janela):
+    fechar_janela(janela)
+    exit()
 
 def acessando_tabelas(caminhos):
     arquivos_data = os.listdir("informacoes/data") # é uma lista animal
 
-    for item_data in arquivos_data:
-        for item_path in caminhos:
-            if str(item_data) in str(item_path):
-                pass
-            else:
-                caminho = item_path
-                #janela
-                janela = Tk()
-                janela.geometry("400x300")
-                janela.title("perguntinha rápida")
-                botao_comfirmar = Button(janela, text="OK", command=lambda: abrir_tabela(caminho, janela))
-                botao_cancelar = Button(janela, text="CANCELAR", command=lambda: fechar_tabela(janela))
-                botao_comfirmar.pack(pady=10)
-                botao_cancelar.pack(pady=10)
-                janela.mainloop()
+    
+    for item_path in caminhos:
+            caminho = item_path
+            nome_do_arquivo = os.path.basename(caminho)
+            mensagem = f"deseja abrir a tabela localizada em {nome_do_arquivo}"
+            ano_do_arquivo = "".join(filter(str.isdigit, nome_do_arquivo))
+
+            if any(ano_do_arquivo in arquivo_data for arquivo_data in arquivos_data):
+                continue
+
+            #janela
+            ctk.set_appearance_mode("System")
+            ctk.set_default_color_theme("blue")
+
+            janela = ctk.CTk()
+            janela.geometry("780x480")
+            janela.title("perguntinha rápida")
+
+
+            texto = ctk.CTkLabel(janela, text=mensagem)
+            texto.pack(padx = 20, pady = 20)
+            
+
+            botao_confirmar = Button(janela, text="Sim", command=lambda: abrir_tabela(caminho, janela))
+            botao_confirmar.pack(padx= 20, pady = 20)
+
+            botao_cancelar = Button(janela, text="CANCELAR", command=lambda: fechar_programa(janela))
+            botao_cancelar.pack(padx= 20, pady = 20)
+
+            janela.mainloop()
         
