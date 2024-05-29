@@ -1,0 +1,13 @@
+[{
+    "ano": 2022,
+    "linhas" : {"pre":{"math": 259, "adm": 21, "pedago": 278, "bio": 49}, "ead":{"math": 159, "adm": 15, "pedago": 172, "bio": 35}},
+    "colunas": {"cursos":["J", "N", "AF", "AJ", "BB","BF", "BW"], "matriculas":["MV", "MZ","NY","OC","PB","PF","QD"], "concluintes":["QJ","QO","RG","RK","SC","SG","SX"]},
+    "sheet": {"pre": "'8.2'!", "ead": "'8.3'!"}
+},
+{
+    "ano": 2021,
+    "linhas": {"pre":{"math": 257, "adm": 20,  "pedago": 276, "bio": 48}, "ead":{"math": 157, "adm": 14, "pedago": 169, "bio": 34}},
+    "colunas": {"cursos":["J","N","Z","AD","AP","AT","BE"], "matriculas":["JJ","JN","KE","KI","KZ","LD","LT"], "concluintes":["MA","ME","MQ","MU","NG","NK","NV"]},
+    "sheet":{"pre":"'8.2'!", "ead":"'8.3'!"}
+}
+]
