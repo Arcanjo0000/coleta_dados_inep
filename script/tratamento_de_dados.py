@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from itertools import islice
 import more_itertools as mit
+from classe.linhastabela import LinhasTabela
 
 def pegando_arquivos_com_dados():
     #lista com os arquivo
@@ -114,34 +115,42 @@ def separando_tipos_de_dados(dados_do_curso, codigo_curso, ano, struct, modalida
                     print("erro ao separar os tipos de dados")
 
 def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
-    print()
-    print(f"tipo de dado = {tipo_dado}")
-    publica = []
-    privada = []
+        print()
+        print(f"tipo de dado = {tipo_dado}")
+        publica = []
+        privada = []
 
-    for idx, dado in enumerate(dados):
-        posicao = idx + 1
+        for idx, dado in enumerate(dados):
+            posicao = idx + 1
 
-        if posicao % 2 == 0:
-            total = dados[idx - 1]
-            total_privada = dado
-            total_publica = total - total_privada
-            publica.append(total_publica)
-            privada.append(total_privada)
-        elif posicao % 7 == 0:
-            publica.append(dado)
-    soma_publica = sum(privada)
-    soma_privada = sum(publica)
-    print(f"privada = {soma_privada}")
-    print(f"publica = {soma_publica}")
+            if posicao % 2 == 0:
+                total = dados[idx - 1]
+                total_privada = dado
+                total_publica = total - total_privada
+                publica.append(total_publica)
+                privada.append(total_privada)
+            elif posicao % 7 == 0:
+                publica.append(dado)
+        soma_publica = sum(privada)
+        soma_privada = sum(publica)
+        passar_dados_para_tabela(ano, codigo_curso, tipo_dado, soma_publica, soma_privada, modalidade)
+
+
+
+def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, modalidade):
+    linhas = LinhasTabela
+    linhas.criar_linha(ano, codigo_curso, modalidade, publica, privada, tipo_dado)
+    criar_tabela()
+
 
 
 
 
 def criar_tabela():
-    dados = {}
+    colunas_da_tabela = ["curso","ano", "tipo.dado", "pub.pre","pub.ead", "priv.pre", "priv.ead"]
+    dados = {coluna: [] for coluna in colunas_da_tabela}
     df = pd.DataFrame(dados)
-    #df.to_excel("dados_tratados.xlsx", index=False)
+    df.to_excel("tabela/dados_tratados.xlsx", index=False)
 
 
 def adicionar_na_tabela(dados_tratados):
