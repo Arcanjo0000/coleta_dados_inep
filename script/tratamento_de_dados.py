@@ -3,6 +3,9 @@ import pandas as pd
 from itertools import islice
 import more_itertools as mit
 from classe.linhastabela import LinhasTabela
+from classe.linha_sheet_cursos import CursosSheet
+from classe.linha_sheet_matriculas import MatriculasSheet
+from classe.linhas_sheet_concluintes import ConcluintesSheet
 
 def pegando_arquivos_com_dados():
     #lista com os arquivo
@@ -45,8 +48,7 @@ def lendo_arquivo(caminho_arquivo):
             return dados_do_arquivo
 
 def separando_modalidades_novo(lista_com_dados_int, ano):
-    print()
-    print(f"ano = {ano}")
+    
     struct = 0
     iterador = iter(lista_com_dados_int)
     presencial = list(islice(iterador, 84))
@@ -97,9 +99,7 @@ def separando_tipos_de_dados(dados_do_curso, codigo_curso, ano, struct, modalida
     if struct == 0:
 
         dados_separados = mit.chunked(dados_do_curso, 7)
-        print()
-        print(modalidade)
-        print(f"curso = {codigo_curso}")
+        
         for qual_dado, dados in enumerate(dados_separados):
             match qual_dado:
                 case 0:
@@ -113,10 +113,10 @@ def separando_tipos_de_dados(dados_do_curso, codigo_curso, ano, struct, modalida
                     tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
                 case _:
                     print("erro ao separar os tipos de dados")
+                    continue
 
 def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
-        print()
-        print(f"tipo de dado = {tipo_dado}")
+        
         publica = []
         privada = []
 
@@ -137,10 +137,52 @@ def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
 
 
 
-def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, modalidade):
-    linhas = LinhasTabela
-    linhas.criar_linha(ano, codigo_curso, modalidade, publica, privada, tipo_dado)
+def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica: int, privada, modalidade):
+    
+    # aqui é onde eu crio as instâncias
+
+    if modalidade == "presencial":
+        match tipo_dado:
+            case "cursos":
+                CursosSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+            case "matriculas":
+                MatriculasSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+            case "concluintes":
+                ConcluintesSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+            case _:
+                print("erro ao tentar criar o tipo da instância")
+
+    elif modalidade == "EAD":
+        for instancia in LinhasTabela.lista_de_linhas:
+            if isinstance(instancia, CursosSheet):
+                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso:
+                    instancia.colocar_atributos_ead(publica, privada)
+                else:
+                    print("erro ao colocar os dados na planilha cursos")
+
+            elif isinstance(instancia, MatriculasSheet):
+                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso:
+                    instancia.colocar_atributos_ead(publica, privada)
+                else:
+                    print("erro ao colocar os dados na planilha matriculas")
+
+            elif isinstance(instancia, ConcluintesSheet):
+                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso:
+                    instancia.colocar_atributos_ead(publica, privada)
+                else:
+                    print("erro ao colocar os dados na planilha concluintes")
+
+
+    else:
+        print("erro ao criar as instâcias")
+    
     criar_tabela()
+
+    LinhasTabela.listar_lista_de_linhas()
+# erro:  MatriculasSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+#   File "c:\Users\Gabriel Archanjo\Documents\automacao_ic\classe\linha_sheet_matriculas.py", line 4, in __init__
+#     super().__init__(curso, ano, pub_pre, pub_ead, priv_pre, priv_ead)
+# TypeError: object.__init__() takes exactly one argument (the instance to initialize)
 
 
 
