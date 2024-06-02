@@ -16,7 +16,7 @@ def pegando_arquivos_com_dados():
         ano = int(ano)
         estrutura_antiga = ano < 2021
         estrutura_nova = ano >= 2021
-        estrutura_bem_antiga = ano == 2009
+        estrutura_especial = ano == 2009
         
         caminho_arquivo = os.path.join("informacoes/data", arquivo)
         #abre os arquivos
@@ -27,11 +27,18 @@ def pegando_arquivos_com_dados():
 
         if estrutura_nova:
             separando_modalidades_novo(dados_transformados, ano)
-            
+        # elif estrutura_antiga:
+        #     separando_modalidades_antiga(dados_transformados, ano)
+        
+    listar_instancias()
+    
+
+
+
 
 def tranformando_dados(dados_do_arquivo):
     lista_com_dados_como_numero = []
-    for idx, dado_list in enumerate(dados_do_arquivo):
+    for dado_list in dados_do_arquivo:
         dado_str = dado_list[0]
         dado_int = int(dado_str.replace(".",""))
         lista_com_dados_como_numero.append(dado_int)
@@ -94,6 +101,10 @@ def separando_modalidades_novo(lista_com_dados_int, ano):
             case _ :
                 print("erro ao tentar separar os cursos EAD")
 
+def eparando_modalidades_antiga(lista_com_dados_int, ano):
+    pass
+
+
 
 def separando_tipos_de_dados(dados_do_curso, codigo_curso, ano, struct, modalidade):
     if struct == 0:
@@ -114,6 +125,7 @@ def separando_tipos_de_dados(dados_do_curso, codigo_curso, ano, struct, modalida
                 case _:
                     print("erro ao separar os tipos de dados")
                     continue
+            
 
 def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
         
@@ -131,13 +143,16 @@ def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
                 privada.append(total_privada)
             elif posicao % 7 == 0:
                 publica.append(dado)
-        soma_publica = sum(privada)
-        soma_privada = sum(publica)
+        soma_publica = sum(publica)
+        soma_privada = sum(privada)
+        # print(f"ano = {ano} curso = {codigo_curso}, tipo do dado = {tipo_dado} modalidade = {modalidade} publica = {soma_publica} privada = {soma_privada}")
         passar_dados_para_tabela(ano, codigo_curso, tipo_dado, soma_publica, soma_privada, modalidade)
 
+    
 
 
-def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica: int, privada, modalidade):
+
+def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, modalidade):
     
     # aqui é onde eu crio as instâncias
 
@@ -153,36 +168,33 @@ def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica: int, privada
                 print("erro ao tentar criar o tipo da instância")
 
     elif modalidade == "EAD":
+        
         for instancia in LinhasTabela.lista_de_linhas:
             if isinstance(instancia, CursosSheet):
-                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso:
+                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in CursosSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
                 else:
-                    print("erro ao colocar os dados na planilha cursos")
+                    pass
 
             elif isinstance(instancia, MatriculasSheet):
-                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso:
+                
+                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in MatriculasSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
                 else:
-                    print("erro ao colocar os dados na planilha matriculas")
+                    pass
 
             elif isinstance(instancia, ConcluintesSheet):
-                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso:
+                if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in ConcluintesSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
                 else:
-                    print("erro ao colocar os dados na planilha concluintes")
+                    pass
 
 
     else:
         print("erro ao criar as instâcias")
     
-    criar_tabela()
 
-    LinhasTabela.listar_lista_de_linhas()
-# erro:  MatriculasSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
-#   File "c:\Users\Gabriel Archanjo\Documents\automacao_ic\classe\linha_sheet_matriculas.py", line 4, in __init__
-#     super().__init__(curso, ano, pub_pre, pub_ead, priv_pre, priv_ead)
-# TypeError: object.__init__() takes exactly one argument (the instance to initialize)
+
 
 
 
@@ -206,8 +218,12 @@ def adicionar_na_tabela(dados_tratados):
 
 
 
-            
-            
+def listar_instancias():
+    lista_das_linhas = LinhasTabela.listar_linhas()
+    
+    for item in lista_das_linhas:
+        print()
+        print(item)
 
 
 
