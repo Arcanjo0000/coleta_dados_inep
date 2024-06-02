@@ -31,7 +31,6 @@ def pegando_arquivos_com_dados():
         #     separando_modalidades_antiga(dados_transformados, ano)
         
     listar_instancias()
-    
 
 
 
@@ -155,24 +154,31 @@ def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
 def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, modalidade):
     
     # aqui é onde eu crio as instâncias
-
+    # o erro não está nesse if
     if modalidade == "presencial":
         match tipo_dado:
             case "cursos":
-                CursosSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+                CursosSheet(codigo_curso, ano, publica, privada)
             case "matriculas":
-                MatriculasSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+                MatriculasSheet(codigo_curso, ano, publica, privada)
             case "concluintes":
-                ConcluintesSheet(codigo_curso, ano, pub_pre=publica, priv_pre=privada)
+                ConcluintesSheet(codigo_curso, ano, publica, privada)
             case _:
                 print("erro ao tentar criar o tipo da instância")
 
+    # o erro está aqui
     elif modalidade == "EAD":
         
         for instancia in LinhasTabela.lista_de_linhas:
+            # print()
+            # print("esses são o resultado de um loop")
+            # print(f"é curso? = {isinstance(instancia, CursosSheet)}\né matricula = {isinstance(instancia, MatriculasSheet)}\né concluintes = {isinstance(instancia, ConcluintesSheet)}")
+            # print(f"essa é a instacia = {instancia}")
+            
             if isinstance(instancia, CursosSheet):
                 if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in CursosSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
+                    break
                 else:
                     pass
 
@@ -180,14 +186,17 @@ def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, mod
                 
                 if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in MatriculasSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
+                    break
                 else:
                     pass
 
             elif isinstance(instancia, ConcluintesSheet):
                 if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in ConcluintesSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
+                    break
                 else:
                     pass
+        # print(f"itens curso = {len(CursosSheet.lista_de_instancias_modificadas)}\nitens matriculas = {len(MatriculasSheet.lista_de_instancias_modificadas)}\nitens concluintes = {len(ConcluintesSheet.lista_de_instancias_modificadas)}")
 
 
     else:
@@ -220,7 +229,8 @@ def adicionar_na_tabela(dados_tratados):
 
 def listar_instancias():
     lista_das_linhas = LinhasTabela.listar_linhas()
-    
+    # numero_de_itens = len(lista_das_linhas)
+    # print(numero_de_itens)
     for item in lista_das_linhas:
         print()
         print(item)
