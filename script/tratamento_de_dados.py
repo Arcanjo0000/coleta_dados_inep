@@ -6,6 +6,7 @@ from classe.linhastabela import LinhasTabela
 from classe.linha_sheet_cursos import CursosSheet
 from classe.linha_sheet_matriculas import MatriculasSheet
 from classe.linhas_sheet_concluintes import ConcluintesSheet
+from script.criando_tabela import comecar_criacao
 
 def pegando_arquivos_com_dados():
     #lista com os arquivo
@@ -14,7 +15,7 @@ def pegando_arquivos_com_dados():
     for arquivo in arquivos_com_dados:
         ano = "".join(filter(str.isdigit, arquivo))
         ano = int(ano)
-        estrutura_antiga = ano < 2021
+        estrutura_antiga = 2021 > ano > 2009
         estrutura_nova = ano >= 2021
         estrutura_especial = ano == 2009
         
@@ -27,10 +28,15 @@ def pegando_arquivos_com_dados():
 
         if estrutura_nova:
             separando_modalidades_novo(dados_transformados, ano)
-        # elif estrutura_antiga:
-        #     separando_modalidades_antiga(dados_transformados, ano)
         
-    listar_instancias()
+        elif estrutura_antiga:
+            separando_modalidades_antigo(dados_transformados, ano)
+
+        elif estrutura_especial:
+            separando_modalidades_especial(dados_transformados, ano)
+        
+    # listar_instancias()
+    comecar_criacao()
 
 
 
@@ -54,12 +60,9 @@ def lendo_arquivo(caminho_arquivo):
             return dados_do_arquivo
 
 def separando_modalidades_novo(lista_com_dados_int, ano):
-    
-    struct = 0
     iterador = iter(lista_com_dados_int)
     presencial = list(islice(iterador, 84))
     ead = list(iterador)
-    # pegar o presencial e dar um jeito de separar os cursos
     cursos_presenciais = mit.chunked(presencial, 21)
     #o idx é o código do curso
     # presenciais
@@ -68,16 +71,16 @@ def separando_modalidades_novo(lista_com_dados_int, ano):
         match idx:
             case 0:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case 1:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case 2:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case 3:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case _ :
                 print("erro ao tentar separar os cursos presenciais")
     
@@ -87,44 +90,114 @@ def separando_modalidades_novo(lista_com_dados_int, ano):
         match idx:
             case 0:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case 1:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case 2:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case 3:
                 codigo_curso = idx
-                separando_tipos_de_dados(curso, codigo_curso, ano, struct, modalidade)
+                separando_tipos_de_dados_novo(curso, codigo_curso, ano, modalidade)
             case _ :
                 print("erro ao tentar separar os cursos EAD")
 
-def eparando_modalidades_antiga(lista_com_dados_int, ano):
-    pass
+def separando_modalidades_antigo(lista_com_dados_int, ano):
 
+    iterador = iter(lista_com_dados_int)
+    presencial = list(islice(iterador, 24))
+    ead = list(iterador)
+    
+    tipo_de_dados_presencial = mit.chunked(presencial, 8)
 
-
-def separando_tipos_de_dados(dados_do_curso, codigo_curso, ano, struct, modalidade):
-    if struct == 0:
-
-        dados_separados = mit.chunked(dados_do_curso, 7)
+    for idx, dados in enumerate(tipo_de_dados_presencial):
+        # idx é o tipo do dado 0 = curso, 1 = matricula, 2 = concluintes
         
-        for qual_dado, dados in enumerate(dados_separados):
-            match qual_dado:
-                case 0:
-                    tipo_dado = "cursos"
-                    tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
-                case 1:
-                    tipo_dado = "matriculas"
-                    tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
-                case 2:
-                    tipo_dado = "concluintes"
-                    tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
-                case _:
-                    print("erro ao separar os tipos de dados")
-                    continue
-            
+        modalidade = "presencial"
+        match idx:
+            case 0:
+                tipo_de_dado = "cursos"
+                tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade)
+            case 1:
+                tipo_de_dado = "matriculas"
+                tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade)
+            case 2: 
+                tipo_de_dado = "concluintes"
+                tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade)
+
+    tipo_de_dados_ead = mit.chunked(ead, 8)
+    for idx, dados in enumerate(tipo_de_dados_ead):
+        # idx é o tipo do dado 0 = curso, 1 = matricula, 2 = concluintes   
+        modalidade = "EAD"
+        match idx:
+            case 0:
+                tipo_de_dado = "cursos"
+                tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade)
+            case 1:
+                tipo_de_dado = "matriculas"
+                tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade)
+                
+            case 2: 
+                tipo_de_dado = "concluintes"
+                tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade)
+
+def separando_modalidades_especial(lista_com_dados_int, ano):
+    iterador = iter(lista_com_dados_int)
+    presencial = list(islice(iterador, 36))
+    ead = list(iterador)
+    
+    tipo_de_dados_presencial = mit.chunked(presencial, 12)
+
+    for idx, dados in enumerate(tipo_de_dados_presencial):
+        modalidade = "presencial"    
+        match idx:
+            case 0:
+                tipo_de_dado = "cursos"
+                tratar_dados_especial(tipo_de_dado, dados, ano, modalidade)
+            case 1:
+                tipo_de_dado = "matriculas"
+                tratar_dados_especial(tipo_de_dado, dados, ano, modalidade)
+            case 2:
+                tipo_de_dado = "concluintes"
+                tratar_dados_especial(tipo_de_dado, dados, ano, modalidade)
+    
+    tipo_de_dados_ead = mit.chunked(ead, 12)
+
+    for idx, dados in enumerate(tipo_de_dados_ead):
+        modalidade = "EAD"    
+        match idx:
+            case 0:
+                tipo_de_dado = "cursos"
+                tratar_dados_especial(tipo_de_dado, dados, ano, modalidade)
+            case 1:
+                tipo_de_dado = "matriculas"
+                tratar_dados_especial(tipo_de_dado, dados, ano, modalidade)
+            case 2:
+                tipo_de_dado = "concluintes"
+                tratar_dados_especial(tipo_de_dado, dados, ano, modalidade)
+
+
+def separando_tipos_de_dados_novo(dados_do_curso, codigo_curso, ano, modalidade):
+
+    dados_separados = mit.chunked(dados_do_curso, 7)
+    
+    for qual_dado, dados in enumerate(dados_separados):
+        match qual_dado:
+            case 0:
+                tipo_dado = "cursos"
+                tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
+            case 1:
+                tipo_dado = "matriculas"
+                tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
+            case 2:
+                tipo_dado = "concluintes"
+                tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade)
+            case _:
+                print("erro ao separar os tipos de dados")
+                continue
+
+
 
 def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
         
@@ -135,26 +208,54 @@ def tratar_dados_novos(tipo_dado, dados, ano, codigo_curso, modalidade):
             posicao = idx + 1
 
             if posicao % 2 == 0:
+
                 total = dados[idx - 1]
                 total_privada = dado
                 total_publica = total - total_privada
                 publica.append(total_publica)
                 privada.append(total_privada)
+
             elif posicao % 7 == 0:
                 publica.append(dado)
         soma_publica = sum(publica)
         soma_privada = sum(privada)
-        # print(f"ano = {ano} curso = {codigo_curso}, tipo do dado = {tipo_dado} modalidade = {modalidade} publica = {soma_publica} privada = {soma_privada}")
-        passar_dados_para_tabela(ano, codigo_curso, tipo_dado, soma_publica, soma_privada, modalidade)
+        formatar_para_passar_dados_para_tabela(ano, codigo_curso, tipo_dado, soma_publica, soma_privada, modalidade)
 
+def tratando_dados_antigo(tipo_de_dado, dados, ano, modalidade):
+    publica = None
+    privada = None
+    dados_por_curso = mit.chunked(dados, 2)
+    for idx, dado in enumerate(dados_por_curso):
+
+        codigo_do_curso = idx
+        total = dado[0]
+        total_privada = dado[1]
+        total_publica = total - total_privada
+        publica = total_publica
+        privada = total_privada
+        
+        formatar_para_passar_dados_para_tabela(ano, codigo_do_curso, tipo_de_dado, publica, privada, modalidade)
+
+def tratar_dados_especial(tipo_de_dado, dados, ano, modalidade):
+    publica = None
+    privada = None
+    dados_por_curso = mit.chunked(dados, 3)
+
+    for idx, dado in enumerate(dados_por_curso):
+
+        codigo_do_curso = idx
+        total = dado[0]
+        total_privada = dado[1] + dado[2]
+        total_publica = total - total_privada
+        privada = total_privada
+        publica = total_publica    
+        formatar_para_passar_dados_para_tabela(ano, codigo_do_curso, tipo_de_dado, publica, privada, modalidade)
     
 
 
 
-def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, modalidade):
+def formatar_para_passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, modalidade):
     
-    # aqui é onde eu crio as instâncias
-    # o erro não está nesse if
     if modalidade == "presencial":
         match tipo_dado:
             case "cursos":
@@ -166,15 +267,10 @@ def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, mod
             case _:
                 print("erro ao tentar criar o tipo da instância")
 
-    # o erro está aqui
     elif modalidade == "EAD":
         
         for instancia in LinhasTabela.lista_de_linhas:
-            # print()
-            # print("esses são o resultado de um loop")
-            # print(f"é curso? = {isinstance(instancia, CursosSheet)}\né matricula = {isinstance(instancia, MatriculasSheet)}\né concluintes = {isinstance(instancia, ConcluintesSheet)}")
-            # print(f"essa é a instacia = {instancia}")
-            
+
             if isinstance(instancia, CursosSheet):
                 if instancia.get_atributo("ano") == ano and instancia.get_atributo("curso") == codigo_curso and instancia not in CursosSheet.lista_de_instancias_modificadas:
                     instancia.colocar_atributos_ead(publica, privada)
@@ -196,24 +292,8 @@ def passar_dados_para_tabela(ano, codigo_curso, tipo_dado, publica, privada, mod
                     break
                 else:
                     pass
-        # print(f"itens curso = {len(CursosSheet.lista_de_instancias_modificadas)}\nitens matriculas = {len(MatriculasSheet.lista_de_instancias_modificadas)}\nitens concluintes = {len(ConcluintesSheet.lista_de_instancias_modificadas)}")
-
-
     else:
         print("erro ao criar as instâcias")
-    
-
-
-
-
-
-
-
-def criar_tabela():
-    colunas_da_tabela = ["curso","ano", "tipo.dado", "pub.pre","pub.ead", "priv.pre", "priv.ead"]
-    dados = {coluna: [] for coluna in colunas_da_tabela}
-    df = pd.DataFrame(dados)
-    df.to_excel("tabela/dados_tratados.xlsx", index=False)
 
 
 def adicionar_na_tabela(dados_tratados):
@@ -224,13 +304,9 @@ def adicionar_na_tabela(dados_tratados):
 
     df_atualizado.to_excel("informacoes/data/dados_tratados.xlsx")
 
-
-
-
 def listar_instancias():
     lista_das_linhas = LinhasTabela.listar_linhas()
-    # numero_de_itens = len(lista_das_linhas)
-    # print(numero_de_itens)
+    print(len(lista_das_linhas))
     for item in lista_das_linhas:
         print()
         print(item)

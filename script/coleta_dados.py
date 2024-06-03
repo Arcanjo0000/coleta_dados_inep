@@ -26,7 +26,7 @@ def formatando_estrutura_para_escrever(linhas, colunas, sheets, lista_de_dados, 
             sheet = sheets[modalidade_sheet]
             for modalidade_linhas in linhas:
                 dict_linhas = linhas[modalidade_linhas]
-                if str(modalidade_sheet) == (modalidade_linhas):
+                if str(modalidade_sheet) == str(modalidade_linhas):
                     for chave in dict_linhas:
                         linha = dict_linhas[chave]
                         print(f"o curso é {chave}")
