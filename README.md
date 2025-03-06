@@ -16,3 +16,5 @@ Após a extração, os dados são filtrados e organizados em tabelas para facili
 🚀 Status do Projeto
 
 O código já está funcional, mas ainda está em desenvolvimento, principalmente para aprimorar o processo de coleta dos dados e torná-lo mais eficiente.
+
+Obs: as tabelas se encontram em https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/sinopses-estatisticas/educacao-superior
